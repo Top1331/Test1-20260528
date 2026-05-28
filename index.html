@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>优选商城 - 登录</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+      color: #222832;
+      background: #f5f7fb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(120deg, rgba(255, 107, 74, 0.16), transparent 34%),
+        linear-gradient(300deg, rgba(35, 120, 214, 0.14), transparent 38%),
+        #f5f7fb;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(320px, 1.04fr) minmax(320px, 0.96fr);
+      align-items: stretch;
+    }
+
+    .brand-panel {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 46px;
+      color: #fff;
+      background:
+        linear-gradient(rgba(17, 27, 45, 0.3), rgba(17, 27, 45, 0.62)),
+        url("https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1400&q=80") center/cover;
+    }
+
+    .logo {
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 800;
+      font-size: 22px;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #ff6b4a;
+      box-shadow: 0 12px 32px rgba(255, 107, 74, 0.35);
+    }
+
+    .brand-copy {
+      max-width: 560px;
+    }
+
+    .brand-copy h1 {
+      margin: 0 0 18px;
+      font-size: clamp(36px, 5vw, 66px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .brand-copy p {
+      max-width: 500px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .feature-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 590px;
+    }
+
+    .feature {
+      min-height: 86px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.13);
+      backdrop-filter: blur(10px);
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 17px;
+    }
+
+    .feature span {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .login-panel {
+      display: grid;
+      place-items: center;
+      padding: 34px;
+    }
+
+    .login-card {
+      width: min(430px, 100%);
+      padding: 34px;
+      border: 1px solid #e2e7f0;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 24px 70px rgba(23, 34, 56, 0.12);
+    }
+
+    .login-card h2 {
+      margin: 0 0 10px;
+      color: #151b26;
+      font-size: 30px;
+      letter-spacing: 0;
+    }
+
+    .hint {
+      margin: 0 0 28px;
+      color: #667085;
+      line-height: 1.6;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #384252;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .input-wrap {
+      display: flex;
+      align-items: center;
+      height: 48px;
+      border: 1px solid #ccd4e1;
+      border-radius: 8px;
+      background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-wrap:focus-within {
+      border-color: #ff6b4a;
+      box-shadow: 0 0 0 4px rgba(255, 107, 74, 0.14);
+    }
+
+    .input-wrap svg {
+      flex: 0 0 auto;
+      margin-left: 14px;
+      color: #7a8494;
+    }
+
+    input {
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+      padding: 0 14px;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: #1f2937;
+      font: inherit;
+    }
+
+    input::placeholder {
+      color: #a4acba;
+    }
+
+    .icon-button {
+      width: 44px;
+      height: 44px;
+      margin-right: 2px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: #6b7482;
+      cursor: pointer;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 8px 0 24px;
+      font-size: 14px;
+    }
+
+    .remember {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #4d5868;
+      font-weight: 600;
+    }
+
+    .remember input {
+      width: 16px;
+      height: 16px;
+      accent-color: #ff6b4a;
+    }
+
+    a {
+      color: #e95332;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .primary {
+      width: 100%;
+      height: 50px;
+      border: 0;
+      border-radius: 8px;
+      background: #ff6b4a;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 14px 32px rgba(255, 107, 74, 0.28);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 36px rgba(255, 107, 74, 0.34);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 26px 0 18px;
+      color: #8a94a3;
+      font-size: 13px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #e4e8f0;
+    }
+
+    .socials {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .socials button {
+      height: 44px;
+      border: 1px solid #d7deea;
+      border-radius: 8px;
+      background: #fff;
+      color: #344054;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .signup {
+      margin: 24px 0 0;
+      color: #667085;
+      text-align: center;
+    }
+
+    .status {
+      min-height: 22px;
+      margin: 14px 0 0;
+      color: #16794f;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-panel {
+        min-height: 380px;
+        padding: 28px;
+      }
+
+      .feature-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .login-panel {
+        padding: 24px 18px 34px;
+      }
+
+      .login-card {
+        padding: 26px;
+      }
+    }
+
+    @media (max-width: 440px) {
+      .brand-panel {
+        min-height: 330px;
+      }
+
+      .brand-copy h1 {
+        font-size: 34px;
+      }
+
+      .brand-copy p,
+      .feature-strip {
+        display: none;
+      }
+
+      .row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .socials {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="brand-panel" aria-label="优选商城介绍">
+      <div class="logo">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none">
+            <path d="M6.5 8.5h12l-1.2 9.1a2 2 0 0 1-2 1.7H9.7a2 2 0 0 1-2-1.7L6.5 8.5Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M9 8.5a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        优选商城
+      </div>
+
+      <div class="brand-copy">
+        <h1>好物准时到家</h1>
+        <p>登录后继续浏览购物车、领取会员专享券，并查看你的订单物流。</p>
+      </div>
+
+      <div class="feature-strip" aria-label="商城服务">
+        <div class="feature">
+          <strong>48 小时达</strong>
+          <span>覆盖主要城市仓配服务</span>
+        </div>
+        <div class="feature">
+          <strong>正品保障</strong>
+          <span>品牌直采与严格质检</span>
+        </div>
+        <div class="feature">
+          <strong>无忧售后</strong>
+          <span>订单问题快速响应</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="login-panel" aria-label="登录表单">
+      <form class="login-card">
+        <h2>欢迎回来</h2>
+        <p class="hint">使用手机号或邮箱登录你的购物账号。</p>
+
+        <div class="field">
+          <label for="account">账号</label>
+          <div class="input-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 6.8A2.8 2.8 0 0 1 6.8 4h10.4A2.8 2.8 0 0 1 20 6.8v10.4a2.8 2.8 0 0 1-2.8 2.8H6.8A2.8 2.8 0 0 1 4 17.2V6.8Z" stroke="currentColor" stroke-width="2"/>
+              <path d="m5 7 7 6 7-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input id="account" name="account" type="text" autocomplete="username" placeholder="手机号 / 邮箱">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password">密码</label>
+          <div class="input-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 10V8a5 5 0 0 1 10 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M6.5 10h11A1.5 1.5 0 0 1 19 11.5v6A2.5 2.5 0 0 1 16.5 20h-9A2.5 2.5 0 0 1 5 17.5v-6A1.5 1.5 0 0 1 6.5 10Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="请输入密码">
+            <button class="icon-button" id="togglePassword" type="button" aria-label="显示密码" title="显示密码">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="remember">
+            <input type="checkbox" name="remember">
+            记住登录状态
+          </label>
+          <a href="#">忘记密码？</a>
+        </div>
+
+        <button class="primary" type="submit">登录并继续购物</button>
+        <p class="status" id="loginStatus" aria-live="polite"></p>
+
+        <div class="divider">快捷登录</div>
+        <div class="socials">
+          <button type="button">微信登录</button>
+          <button type="button">支付宝登录</button>
+        </div>
+
+        <p class="signup">还没有账号？ <a href="#">免费注册</a></p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const form = document.querySelector(".login-card");
+    const password = document.querySelector("#password");
+    const togglePassword = document.querySelector("#togglePassword");
+    const loginStatus = document.querySelector("#loginStatus");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      loginStatus.textContent = "登录请求已提交，正在为你跳转购物车。";
+    });
+
+    togglePassword.addEventListener("click", () => {
+      const showing = password.type === "text";
+      password.type = showing ? "password" : "text";
+      togglePassword.setAttribute("aria-label", showing ? "显示密码" : "隐藏密码");
+      togglePassword.title = showing ? "显示密码" : "隐藏密码";
+    });
+  </script>
+</body>
+</html>
